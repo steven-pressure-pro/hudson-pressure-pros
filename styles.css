@@ -618,11 +618,14 @@ address {
 }
 
 .trust-badges {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     justify-content: center;
-    flex-wrap: wrap;
     gap: var(--space-md);
     margin-top: var(--space-xl);
+    max-width: 900px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .badge {
@@ -634,6 +637,7 @@ address {
     border-radius: var(--radius-md);
     padding: var(--space-md) var(--space-lg);
     color: var(--white);
+    justify-content: center;
 }
 
 .badge-icon {
@@ -730,6 +734,15 @@ address {
 .service-desc {
     font-size: 0.9375rem;
     color: var(--text-light);
+    padding: 0 var(--space-lg);
+    margin-bottom: var(--space-sm);
+}
+
+.service-price {
+    font-family: var(--font-primary);
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--orange);
     padding: 0 var(--space-lg);
     margin-bottom: var(--space-lg);
 }
@@ -1020,11 +1033,33 @@ fieldset.form-group {
     cursor: pointer;
 }
 
+.consent-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+    padding: var(--space-md);
+    background-color: var(--off-white);
+    border-radius: var(--radius-md);
+    border: 2px solid var(--light-gray);
+}
+
+.consent-checkbox input[type="checkbox"] {
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+.consent-text {
+    font-size: 0.8125rem;
+    color: var(--text-dark);
+    line-height: 1.5;
+}
+
 .form-privacy {
     text-align: center;
-    font-size: 0.8125rem;
-    color: var(--text-light);
+    font-size: 0.875rem;
+    color: var(--navy);
     margin-top: var(--space-md);
+    font-weight: 600;
 }
 
 .form-privacy a {
@@ -1707,13 +1742,12 @@ fieldset.form-group {
     }
 
     .trust-badges {
-        flex-direction: column;
-        align-items: center;
+        grid-template-columns: 1fr;
+        max-width: 320px;
     }
 
     .badge {
         width: 100%;
-        max-width: 280px;
         justify-content: center;
     }
 
