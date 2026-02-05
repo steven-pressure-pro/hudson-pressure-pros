@@ -1,0 +1,21 @@
+# Design and research files
+DESIGN-RESEARCH-2026.md
+
+# Image planning files
+images/IMAGES_NEEDED.md
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
