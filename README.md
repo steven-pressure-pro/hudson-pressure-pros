@@ -6,6 +6,10 @@ Professional pressure washing services in Hudson, FL and surrounding areas.
 
 This repository contains the source code for the Hudson Pressure Pros website.
 
+**Live Site:** https://steven-pressure-pro.github.io/hudson-pressure-pros/
+
+> **Note:** To use your custom domain (hudsonpressurepros.com), you'll need to configure DNS settings and add a CNAME file to this repository.
+
 ### Services Offered
 - House Washing
 - Driveway Cleaning
