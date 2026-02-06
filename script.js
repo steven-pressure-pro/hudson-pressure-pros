@@ -253,69 +253,37 @@
             });
         });
 
-        // Form submission
+        // Form submission - handled by submitToGoogle function (see below)
+        // Validation still runs before submission
         contactForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-
             let isValid = true;
-            const requiredFields = this.querySelectorAll('input[required]');
+            const requiredFields = this.querySelectorAll('input[required], input[type="checkbox"][required]');
 
             requiredFields.forEach(field => {
-                if (!validateField(field)) {
+                if (field.type === 'checkbox') {
+                    if (!field.checked) {
+                        isValid = false;
+                        const errorElement = field.closest('.form-group')?.querySelector('.error-message');
+                        if (errorElement) {
+                            errorElement.textContent = 'This field is required';
+                        }
+                    }
+                } else if (!validateField(field)) {
                     isValid = false;
                 }
             });
 
             if (!isValid) {
+                e.preventDefault();
                 // Focus first invalid field
                 const firstError = this.querySelector('.error');
                 if (firstError) {
                     firstError.focus();
                 }
-                return;
+                return false;
             }
 
-            // Show loading state
-            const submitBtn = this.querySelector('.btn-submit');
-            submitBtn.classList.add('loading');
-            submitBtn.disabled = true;
-
-            // Collect form data
-            const formData = new FormData(this);
-            const data = {
-                firstName: formData.get('first-name'),
-                lastName: formData.get('last-name'),
-                email: formData.get('email'),
-                phone: formData.get('phone'),
-                address: formData.get('address'),
-                services: formData.getAll('services'),
-                message: formData.get('message')
-            };
-
-            // Simulate form submission (replace with actual endpoint)
-            setTimeout(() => {
-                submitBtn.classList.remove('loading');
-                submitBtn.disabled = false;
-
-                // Show success message
-                alert('Thank you for your quote request! We will contact you within 24 hours.');
-                this.reset();
-
-                // Track conversion (analytics)
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'form_submit', {
-                        'event_category': 'Lead',
-                        'event_label': 'Quote Request'
-                    });
-                }
-
-                // In production, send to server:
-                // fetch('/api/contact', {
-                //     method: 'POST',
-                //     headers: { 'Content-Type': 'application/json' },
-                //     body: JSON.stringify(data)
-                // });
-            }, 1000);
+            // If valid, submitToGoogle function will handle the rest
         });
     }
 
@@ -565,3 +533,72 @@
     console.log('Website loaded successfully!');
 
 })();
+
+// ==========================================================================
+// Google Forms Submission Handler (Global scope for inline onsubmit)
+// ==========================================================================
+
+var submitted = false;
+
+function submitToGoogle(event) {
+    event.preventDefault();
+    
+    const form = event.target;
+    const submitBtn = form.querySelector('.btn-submit');
+    
+    // Show loading state
+    submitBtn.classList.add('loading');
+    submitBtn.disabled = true;
+    
+    // Set submitted flag for iframe onload
+    submitted = true;
+    
+    // Submit form to Google Forms
+    form.submit();
+    
+    return false;
+}
+
+function onFormSubmitSuccess() {
+    const form = document.getElementById('contact-form');
+    const submitBtn = form?.querySelector('.btn-submit');
+    
+    if (submitBtn) {
+        submitBtn.classList.remove('loading');
+        submitBtn.disabled = false;
+    }
+    
+    // Show success message
+    alert('Thank you! We\'ll respond to your quote request within 24 hours.\n\nYou can also call us at (727) 998-4211 for immediate assistance.');
+    
+    // Reset form
+    if (form) {
+        form.reset();
+    }
+    
+    // Track conversion (analytics)
+    if (typeof gtag !== 'undefined') {
+        gtag('event', 'form_submit', {
+            'event_category': 'Lead',
+            'event_label': 'Quote Request - Google Forms'
+        });
+    }
+    
+    // Facebook Pixel tracking
+    if (typeof fbq !== 'undefined') {
+        fbq('track', 'Lead');
+    }
+    
+    // Reset submitted flag
+    submitted = false;
+    
+    // Scroll to top of form
+    if (form) {
+        const headerHeight = document.querySelector('.header')?.offsetHeight || 0;
+        const formPosition = form.getBoundingClientRect().top + window.scrollY - headerHeight - 20;
+        window.scrollTo({
+            top: formPosition,
+            behavior: 'smooth'
+        });
+    }
+}

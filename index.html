@@ -615,22 +615,27 @@
                     <p class="section-subtitle">Don't let Florida mold diminish your home's value another day. Get your guaranteed, damage-free quote now!</p>
                 </header>
 
-                <form class="quote-form" id="contact-form" action="#" method="POST" novalidate>
+                <form class="quote-form" id="contact-form" 
+                      action="https://docs.google.com/forms/d/e/1FAIpQLSdG7kh37aL5LakmSNeglnwxJmD1zZDn3htHBu4m9dtZpCCJwg/formResponse" 
+                      method="POST" 
+                      target="hidden_iframe"
+                      onsubmit="return submitToGoogle(event)">
+                    
                     <div class="form-group">
                         <label for="first-name">First Name <span class="required" aria-hidden="true">*</span></label>
-                        <input type="text" id="first-name" name="first-name" autocomplete="given-name" required aria-required="true" placeholder="John">
+                        <input type="text" id="first-name" name="entry.1598648139" autocomplete="given-name" required aria-required="true" placeholder="John">
                         <span class="error-message" role="alert" aria-live="polite"></span>
                     </div>
 
                     <div class="form-group">
                         <label for="phone">Phone <span class="required" aria-hidden="true">*</span></label>
-                        <input type="tel" id="phone" name="phone" autocomplete="tel" required aria-required="true" placeholder="(727) 555-1234">
+                        <input type="tel" id="phone" name="entry.66489342" autocomplete="tel" required aria-required="true" placeholder="(727) 555-1234">
                         <span class="error-message" role="alert" aria-live="polite"></span>
                     </div>
 
                     <div class="form-group">
                         <label for="address">Property Address <span class="required" aria-hidden="true">*</span></label>
-                        <input type="text" id="address" name="address" autocomplete="street-address" required aria-required="true" placeholder="123 Main St, Hudson, FL">
+                        <input type="text" id="address" name="entry.1981738517" autocomplete="street-address" required aria-required="true" placeholder="123 Main St, Hudson, FL">
                         <span class="error-message" role="alert" aria-live="polite"></span>
                     </div>
 
@@ -638,32 +643,32 @@
                         <legend>Services Needed <span class="optional">(select all that apply)</span></legend>
                         <div class="checkbox-grid">
                             <label class="checkbox-label">
-                                <input type="checkbox" name="services" value="house-soft-wash">
+                                <input type="checkbox" name="entry.460690297" value="House Soft Wash">
                                 <span class="checkbox-custom" aria-hidden="true"></span>
                                 <span>House Soft Wash</span>
                             </label>
                             <label class="checkbox-label">
-                                <input type="checkbox" name="services" value="driveway-concrete">
+                                <input type="checkbox" name="entry.460690297" value="Driveway & Concrete Pressure Clean">
                                 <span class="checkbox-custom" aria-hidden="true"></span>
                                 <span>Driveway &amp; Concrete</span>
                             </label>
                             <label class="checkbox-label">
-                                <input type="checkbox" name="services" value="pool-cage">
+                                <input type="checkbox" name="entry.460690297" value="Pool Cage Wash">
                                 <span class="checkbox-custom" aria-hidden="true"></span>
                                 <span>Pool Cage / Screen</span>
                             </label>
                             <label class="checkbox-label">
-                                <input type="checkbox" name="services" value="deck-lanai">
+                                <input type="checkbox" name="entry.460690297" value="Deck/Lanai Cleaning">
                                 <span class="checkbox-custom" aria-hidden="true"></span>
                                 <span>Pool Deck / Lanai</span>
                             </label>
                             <label class="checkbox-label">
-                                <input type="checkbox" name="services" value="fence">
+                                <input type="checkbox" name="entry.460690297" value="Fence Cleaning">
                                 <span class="checkbox-custom" aria-hidden="true"></span>
                                 <span>Fence Cleaning</span>
                             </label>
                             <label class="checkbox-label">
-                                <input type="checkbox" name="services" value="gutter">
+                                <input type="checkbox" name="entry.460690297" value="Gutter Clean Out">
                                 <span class="checkbox-custom" aria-hidden="true"></span>
                                 <span>Gutter Clean Out</span>
                             </label>
@@ -672,9 +677,9 @@
 
                     <div class="form-group">
                         <label class="checkbox-label consent-checkbox">
-                            <input type="checkbox" name="sms-consent" required aria-required="true">
+                            <input type="checkbox" name="entry.170277417" value="I agree to receive quotes, appointment reminders, and invoices from Hudson Pressure Pros LLC at the phone number provided. Consent is not a condition of purchase. Message frequency varies. Message and data rates may apply. Reply STOP to unsubscribe or HELP for help. See our Privacy Policy." required aria-required="true">
                             <span class="checkbox-custom" aria-hidden="true"></span>
-                            <span class="consent-text">By checking this box, I agree to receive quotes, appointment reminders, and invoices from Hudson Pressure Pros LLC at the phone number provided. Consent is not a condition of purchase. Message frequency varies. Message and data rates may apply. Reply STOP to unsubscribe or HELP for help. See our Privacy Policy.</span>
+                            <span class="consent-text">By checking this box, I agree to receive quotes, appointment reminders, and invoices from Hudson Pressure Pros LLC at the phone number provided. Consent is not a condition of purchase. Message frequency varies. Message and data rates may apply. Reply STOP to unsubscribe or HELP for help. See our <a href="privacy-policy.html" target="_blank">Privacy Policy</a>.</span>
                         </label>
                         <span class="error-message" role="alert" aria-live="polite"></span>
                     </div>
@@ -686,6 +691,9 @@
 
                     <p class="form-privacy">We respond to all quote requests the same day.</p>
                 </form>
+
+                <!-- Hidden iframe for Google Forms submission -->
+                <iframe name="hidden_iframe" id="hidden_iframe" style="display:none;" onload="if(submitted) {onFormSubmitSuccess();}"></iframe>
             </div>
         </section>
 
