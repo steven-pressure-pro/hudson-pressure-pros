@@ -550,8 +550,13 @@ function submitToGoogle(event) {
     submitBtn.classList.add('loading');
     submitBtn.disabled = true;
     
-    // Set submitted flag for iframe onload
-    submitted = true;
+    // Reset submitted flag BEFORE setting it to true
+    submitted = false;
+    
+    // Use setTimeout to ensure flag is set after iframe potentially loads
+    setTimeout(() => {
+        submitted = true;
+    }, 100);
     
     // Submit form to Google Forms
     form.submit();
@@ -560,6 +565,9 @@ function submitToGoogle(event) {
 }
 
 function onFormSubmitSuccess() {
+    // Only process if form was actually just submitted
+    if (!submitted) return;
+    
     const form = document.getElementById('contact-form');
     const submitBtn = form?.querySelector('.btn-submit');
     
@@ -567,6 +575,9 @@ function onFormSubmitSuccess() {
         submitBtn.classList.remove('loading');
         submitBtn.disabled = false;
     }
+    
+    // Reset submitted flag IMMEDIATELY to prevent re-triggering
+    submitted = false;
     
     // Show success message
     alert('Thank you! We\'ll respond to your quote request within 24 hours.\n\nYou can also call us at (727) 998-4211 for immediate assistance.');
@@ -588,9 +599,6 @@ function onFormSubmitSuccess() {
     if (typeof fbq !== 'undefined') {
         fbq('track', 'Lead');
     }
-    
-    // Reset submitted flag
-    submitted = false;
     
     // Scroll to top of form
     if (form) {
