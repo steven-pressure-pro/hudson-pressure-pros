@@ -1,0 +1,24 @@
+# Dependency & Build Folders
+node_modules/
+.git/
+dist/
+build/
+.next/
+
+# Binary & Media Files (The "Token Vampires")
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.gif
+*.svg
+*.ico
+*.pdf
+*.zip
+*.mov
+*.mp4
+
+# Sensitive Data
+.env
+*.key
+*.pem
